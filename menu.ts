@@ -1,4 +1,5 @@
 import { Menu, MenuItem } from 'electron';
+import { openFile } from './main';
 
 
 const editMenu = () => new MenuItem({
@@ -52,7 +53,10 @@ const fileMenu = () => new MenuItem({
             label: 'New Window',
         },
         {
-            label: 'Open File'
+            label: 'Open File',
+            click: () => {
+                openFile();
+            }
         },
         {
             label: 'Save',
