@@ -2,6 +2,9 @@ import { app, BrowserWindow } from 'electron';
 import * as url from 'url';
 import * as path from 'path';
 
+import { createMenu } from './menu';
+
+// Create window
 const createWindow = () => {
     const window  = new BrowserWindow({
         show: false,
@@ -25,6 +28,7 @@ const createWindow = () => {
 
 // App Ready then create window
 app.on('ready', () => {
+    createMenu();
     createWindow();
 })
 

@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Fira Code';
+    overflow: hidden;
+    max-width: 100%;
+}
+
+@font-face {
+    font-family: 'Fira Code';
+    src: url('./assets/font/FiraCode-Regular.woff') format('woff')
+}

@@ -10,7 +10,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron": "tsc && electron ."
-
   },
   "private": true,
   "dependencies": {
@@ -23,7 +22,7 @@
     "@angular/platform-browser-dynamic": "~8.0.0-rc.4",
     "@angular/router": "~8.0.0-rc.4",
     "@types/electron": "^1.6.10",
-    "electron": "^5.0.2",
+    "markdown": "^0.5.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -37,6 +36,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "electron": "^5.0.2",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",

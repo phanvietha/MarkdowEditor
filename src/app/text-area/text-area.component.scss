@@ -1,5 +1,49 @@
+@import '../../shared/styles/scrollbar';
+@include customScrollBar();
+
 :host {
-    background-color: #333;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+}
+
+.markdown-editor {
+    background-color: #122738;
+    height: inherit;
+}
+
+main {
+    display: grid;
+    grid-template: 
+        "firstTab secondTab" 1fr
+        /1fr   1fr;
+    grid-gap: 1rem;
+    font-size: 1rem;
+    padding: 1rem;
+    height: inherit;
+    box-sizing: border-box
+}
+
+@mixin backgroundEditor {
+    background-color: #193549;
+    color: white;
+    font-family: inherit;
+    padding: 0.5rem;
+    font-size: inherit;
+    overflow-y: scroll
+}
+
+textarea {
+    grid-area: firstTab;
+    resize: none;
+    border: none;
+    outline: none;
+    @include backgroundEditor();
+}
+
+
+.second-tab {
+    grid-area: secondTab;
+    word-break: break-all;
+    @include backgroundEditor();
 }

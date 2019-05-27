@@ -1,0 +1,11 @@
+@mixin customScrollBar {
+    ::-webkit-scrollbar {
+        width: 10px;
+        cursor: default;
+    }
+     
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: rgba($color: #ffffff, $alpha: 0.2);
+    }
+}
