@@ -1,5 +1,5 @@
-import { Menu, MenuItem } from 'electron';
-import { openFile } from './main';
+import { Menu, MenuItem, BrowserWindow } from 'electron';
+import { openFile, createWindow } from './main';
 
 
 const editMenu = () => new MenuItem({
@@ -51,11 +51,14 @@ const fileMenu = () => new MenuItem({
     submenu: [
         {
             label: 'New Window',
+            click: () => {
+                createWindow();
+            }
         },
         {
             label: 'Open File',
-            click: () => {
-                openFile();
+            click: (_, currentWindow: BrowserWindow) => {
+                openFile(currentWindow);
             }
         },
         {
