@@ -1,6 +1,6 @@
 <div class="markdown-editor">
     <main>
-        <textarea [formControl]="inputText"></textarea>
+        <textarea [formControl]="inputText" #textArea (contextmenu)="onPopupMenu()"></textarea>
         <div class="second-tab" #previewTab>
         </div>
     </main>

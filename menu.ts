@@ -1,5 +1,5 @@
 import { Menu, MenuItem, BrowserWindow } from 'electron';
-import { openFile, createWindow } from './main';
+import { getFile, createWindow } from './main';
 
 
 const editMenu = () => new MenuItem({
@@ -58,13 +58,20 @@ const fileMenu = () => new MenuItem({
         {
             label: 'Open File',
             click: (_, currentWindow: BrowserWindow) => {
-                openFile(currentWindow);
+                getFile(currentWindow);
             }
         },
         {
             label: 'Save',
             accelerator: 'CmdOrCtrl+S',
             // role: ''
+        },
+        {type: 'separator'},
+        {
+            label: 'Export HTML File',
+            click: (_, targetWindow) => {
+                targetWindow.webContents.send('export-html');
+            }
         },
         {type: 'separator'},
         {

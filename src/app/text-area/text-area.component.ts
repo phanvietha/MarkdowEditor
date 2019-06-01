@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { ElectronService } from 'src/shared/services/electron.service';
 import * as md from 'markdown';
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, Menu } from 'electron';
 
 @Component({
   selector: 'app-text-area',
@@ -14,15 +14,20 @@ export class TextAreaComponent implements OnInit {
   @ViewChild('previewTab' , {static: false}) previewTab: ElementRef;
   inputText: FormControl;
   currentWindow: BrowserWindow;
+  mainProcess;
+  menu: Menu;
 
   constructor(private electronService: ElectronService) {
     this.inputText = new FormControl();
     this.currentWindow = this.electronService.remote.getCurrentWindow();
+    this.mainProcess = this.electronService.remote.require('../out-tsc/main');
   }
 
   ngOnInit() {
     this.inputOnChange();
     this.listenOpenedFile();
+    this.listenExportHtml();
+    this.createMenu();
   }
 
   inputOnChange = () => {
@@ -46,5 +51,24 @@ export class TextAreaComponent implements OnInit {
     }
     this.currentWindow.setTitle(title);
     this.currentWindow.setDocumentEdited(true);
+  }
+
+  listenExportHtml = () => {
+    this.electronService.ipcRenderer.on('export-html', () => {
+        this.mainProcess.saveAsHtml(this.currentWindow, this.inputText.value);
+    })
+  }
+
+  createMenu = () => {
+    this.menu = this.electronService.remote.Menu.buildFromTemplate([
+        { label: 'Cut', role: 'cut' },
+        { label: 'Copy', role: 'copy' },
+        { label: 'Paste', role: 'paste' },
+        { label: 'Select All', role: 'selectall' },
+    ])
+  }
+
+  onPopupMenu = () => {
+    this.menu.popup();
   }
 }
