@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, remote } from 'electron';
+import * as path from 'path';
 
 declare global {
     interface Window {
@@ -11,12 +12,16 @@ declare global {
 @Injectable({
     providedIn: 'root'
 })
-export class ElectronModuleService {
+export class ElectronService {
     ipcRenderer: typeof ipcRenderer;
-    
+    path: typeof path;
+    remote: typeof remote
+
     constructor() {
         if (this.isInElectron()) {
+            this.remote = window.require('electron').remote;
             this.ipcRenderer = window.require('electron').ipcRenderer;
+            this.path = window.require('path');
         }
     }
 
