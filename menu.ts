@@ -64,7 +64,9 @@ const fileMenu = () => new MenuItem({
         {
             label: 'Save',
             accelerator: 'CmdOrCtrl+S',
-            // role: ''
+            click: (_, targetWindow) => {
+                targetWindow.webContents.send('save-file');
+            }
         },
         {type: 'separator'},
         {

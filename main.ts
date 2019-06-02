@@ -118,7 +118,6 @@ export const saveAsHtml = (targetWindow, content) => {
 const startWatchingFile = (targetWindow: BrowserWindow, filePath: string) => {
     stopWatchingFile(targetWindow);
     const watcher = fs.watch(filePath, (eventType, filename) => {
-        console.log('sdds');
         if (eventType === 'change') {
             openFile(targetWindow, filePath);
         }
@@ -131,6 +130,25 @@ const stopWatchingFile =  (targetWindow: BrowserWindow) => {
     if (fileMap.has(targetWindow)) {
         fileMap.get(targetWindow).close();
         fileMap.delete(targetWindow);
+    }
+}
+
+export const saveMarkdown = (targetWindow: BrowserWindow, filePath: string, content: string) => {
+    if (!filePath) {
+        filePath = dialog.showSaveDialog(targetWindow, {
+            title: 'Save Markdown',
+            filters: [
+                {
+                    name: 'Markdown',
+                    extensions: ['md']
+                }
+            ]
+        })
+    }
+
+    if (filePath) {
+        fs.writeFileSync(filePath, content);
+        openFile(targetWindow, filePath);
     }
 }
 

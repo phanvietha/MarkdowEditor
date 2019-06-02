@@ -16,6 +16,7 @@ export class TextAreaComponent implements OnInit {
   currentWindow: BrowserWindow;
   mainProcess;
   menu: Menu;
+  filePath: string;
 
   constructor(private electronService: ElectronService) {
     this.inputText = new FormControl();
@@ -27,6 +28,7 @@ export class TextAreaComponent implements OnInit {
     this.inputOnChange();
     this.listenOpenedFile();
     this.listenExportHtml();
+    this.listenSaveFile();
     this.createMenu();
   }
 
@@ -39,6 +41,7 @@ export class TextAreaComponent implements OnInit {
 
   listenOpenedFile = () => {
     this.electronService.ipcRenderer.on('file-opened', (event, filePath, content) => {
+      this.filePath = filePath;
       this.inputText.setValue(content);
       this.updateAppTitle(filePath);
     });
@@ -70,5 +73,11 @@ export class TextAreaComponent implements OnInit {
 
   onPopupMenu = () => {
     this.menu.popup();
+  }
+
+  listenSaveFile = () => {
+    this.electronService.ipcRenderer.on('save-file', () => {
+      this.mainProcess.saveMarkdown(this.currentWindow, this.filePath, this.inputText.value);
+    })
   }
 }
